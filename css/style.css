@@ -1,0 +1,126 @@
+*
+{
+    box-sizing: border-box;
+}
+
+.container
+{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Current Weather */
+
+.currentWeather
+{
+    background-color: #47B5FF;
+    padding: 20vh 0;
+}
+
+.currentWeather .stateWeather
+{
+    text-align: center;
+    color: white;
+    font-family: 'Roboto' ,sans-serif;
+    font-size: 30px;
+}
+
+.currentWeather .stateWeather .icon
+{
+    font-size: 3em;
+    margin-bottom: 30px;
+}
+
+.currentWeather .stateWeather .temp, .currentWeather .stateWeather .location
+{
+    font-weight: 500;
+    line-height: 1.4em;
+}
+
+.currentWeather .stateWeather .location
+{
+    margin-bottom: 20px;
+}
+
+.currentWeather .stateWeather .skyState
+{
+    font-weight: 300;
+}
+
+.currentWeather .info
+{
+    text-align: center;
+    color: #47B5FF;
+    font-family: 'Roboto' ,sans-serif;
+    font-size: 20px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+.currentWeather .info div
+{
+    background-color: white;
+    padding: 1em;
+    border-radius: .5em;
+}
+
+.currentWeather .getLoca
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    font-size: 30px;
+}
+
+.currentWeather .getLoca form
+{
+    margin-right: 1em;
+    color: #47B5FF;
+    padding: 1em;
+    background-color: white;
+    font-size: .6em;
+    font-family: 'Roboto', sans-serif;
+    border-radius: .5em;
+}
+
+.currentWeather .getLoca form input, .currentWeather .getLoca form button
+{
+    padding: 0.5em;
+    font-size: .8em;
+    font-family: 'Roboto', sans-serif;
+    color: #444;
+    border: 1px solid #47B5FF;
+    border-radius: 0.5em;
+}
+
+.currentWeather .getLoca button
+{
+    padding: 1em;
+    font-size: 0.6em;
+    font-family: 'Roboto', sans-serif;
+    color: #444;
+    border: 1px solid #47B5FF;
+    border-radius: 0.5em;
+}
+
+.currentWeather .getLoca form button, .currentWeather .getLoca button
+{
+    cursor: pointer;
+    background-color: white;
+    transition: all .3s ease-in-out;
+}
+
+.currentWeather .getLoca button:hover
+{
+    background-color: #444;
+    color: white;
+}
+
+.currentWeather .getLoca form button:hover
+{
+    background-color: #47B5FF;
+    color: white;
+}
