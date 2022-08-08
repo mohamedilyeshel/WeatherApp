@@ -15,7 +15,6 @@ let getP = "";
 
 otherLocForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  console.log(otherLocForm.elements.loca.value);
   if (otherLocForm.elements.loca.value !== "") {
     const res = await getLocation(otherLocForm.elements.loca.value);
     if (res.data.length > 0) {
@@ -134,9 +133,9 @@ const ChangeInfos = (
   weatherHeaderInfo.wind.children[0].children[0].classList.add(
     "wi-towards-" + wind.deg
   );
-  let sunriseTime = new Date(sunrise * 1000 + timezone);
-  let sunsetTime = new Date(sunset * 1000 + timezone);
-  let utcH = `UTC+${new Date(timezone).getHours()}`;
+  let sunriseTime = new Date(sunrise * 1000 + timezone * 1000);
+  let sunsetTime = new Date(sunset * 1000 + timezone * 1000);
+  let utcH = `UTC+${new Date(timezone * 1000).getHours()}`;
   weatherHeaderInfo.sunrise.children[0].children[1].innerText = `${sunriseTime.getHours()}:${sunriseTime.getMinutes()} ${utcH}`;
   weatherHeaderInfo.sunset.children[0].children[1].innerText = `${sunsetTime.getHours()}:${sunsetTime.getMinutes()} ${utcH}`;
 };
