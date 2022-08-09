@@ -14,16 +14,20 @@ const otherLocForm = document.querySelector("form");
 let getP = "";
 
 otherLocForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  if (otherLocForm.elements.loca.value !== "") {
-    const res = await getLocation(otherLocForm.elements.loca.value);
-    if (res.data.length > 0) {
-      getP = res.data[0].lat + "-" + res.data[0].lon;
-      const r = await getWeather();
-      ChangeHeaderInfo(r);
-    } else {
-      console.log("no result");
+  try {
+    e.preventDefault();
+    if (otherLocForm.elements.loca.value !== "") {
+      const res = await getLocation(otherLocForm.elements.loca.value);
+      if (res.data.length > 0) {
+        getP = res.data[0].lat + "-" + res.data[0].lon;
+        const r = await getWeather();
+        ChangeHeaderInfo(r);
+      } else {
+        console.log("no result");
+      }
     }
+  } catch (err) {
+    console.error(err);
   }
 });
 
@@ -43,7 +47,7 @@ const getWeather = async () => {
     });
     return res;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -60,7 +64,9 @@ const getLocation = async (l) => {
     });
 
     return res;
-  } catch (err) {}
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const ChangeIconDOM = (c, isDay, noSM = false) => {
@@ -129,31 +135,33 @@ const ChangeInfos = (
   weatherHeaderInfo.wind.children[0].children[1].innerText = Math.ceil(
     wind.speed * 3.6
   );
-  weatherHeaderInfo.wind.children[0].children[0].classList.remove(2);
+  weatherHeaderInfo.wind.children[0].children[0].classList.remove(
+    weatherHeaderInfo.wind.children[0].children[0].classList[2]
+  );
   weatherHeaderInfo.wind.children[0].children[0].classList.add(
-    "wi-towards-" + wind.deg
+    "towards-" + wind.deg + "-deg"
   );
   let sunriseTime = new Date(sunrise * 1000 + timezone * 1000);
   let sunsetTime = new Date(sunset * 1000 + timezone * 1000);
-  let utcH = `UTC+${new Date(timezone * 1000).getHours()}`;
+  let utcH = `UTC+${new Date(timezone * 1000).getUTCHours()}`;
   weatherHeaderInfo.sunrise.children[0].children[1].innerText = `${sunriseTime.getHours()}:${sunriseTime.getMinutes()} ${utcH}`;
   weatherHeaderInfo.sunset.children[0].children[1].innerText = `${sunsetTime.getHours()}:${sunsetTime.getMinutes()} ${utcH}`;
 };
 
-const ChangeHeaderInfo = async (res) => {
-  try {
-    ChangeIcon(res.data.list[0]);
-    ChangeInfos(res.data.list[0], res.data.city);
-  } catch (err) {
-    console.log(err);
-  }
+const ChangeHeaderInfo = (res) => {
+  ChangeIcon(res.data.list[0]);
+  ChangeInfos(res.data.list[0], res.data.city);
 };
 
 const GetCurr = () => {
   navigator.geolocation.getCurrentPosition(async (pos) => {
-    getP = pos.coords.latitude + "-" + pos.coords.longitude;
-    const res = await getWeather();
-    ChangeHeaderInfo(res);
+    try {
+      getP = pos.coords.latitude + "-" + pos.coords.longitude;
+      const res = await getWeather();
+      ChangeHeaderInfo(res);
+    } catch (err) {
+      console.error(err);
+    }
   });
 };
 
